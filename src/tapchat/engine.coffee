@@ -51,6 +51,12 @@ SessionStore = require './session_store'
 
 {starts, ends, compact, count, merge, extend, flatten, del, last} = CoffeeScript.helpers
 
+checkPassword = (password, hash) ->
+  PasswordHash.verify(password, hash)
+  
+newPassword = (password) ->
+  PasswordHash.generate(password)
+
 class Engine
   constructor: (config, callback) ->
     @users = []
@@ -71,7 +77,7 @@ class Engine
     Passport.use new LocalStrategy (username, password, done) =>
       @db.selectUserByName username, (userInfo) =>
         return done(null, false, message: 'Invalid username') unless userInfo?
-        unless PasswordHash.verify(password, userInfo.password)
+        unless checkPassword(password, userInfo.password)
           return done(null, false, message: 'Invalid password')
         done(null, userInfo)
 
@@ -176,7 +182,7 @@ class Engine
         return
 
       @db.selectUser req.session.uid, (userInfo) =>
-        unless PasswordHash.verify(oldpassword, userInfo.password)
+        unless checkPassword(oldpassword, userInfo.password)
           res.json
             success: false
             message: 'Incorrect old password.',
@@ -184,7 +190,7 @@ class Engine
           return
 
         @db.updateUser req.session.uid,
-          password_hash: PasswordHash.generate(newpassword),
+          password_hash: newPassword(newpassword),
           (row) =>
             res.json
               success: true
@@ -219,7 +225,7 @@ class Engine
       password = req.body.password
       isAdmin  = req.body.is_admin == 'true'
 
-      @db.insertUser name, PasswordHash.generate(password), isAdmin, (row) =>
+      @db.insertUser name, newPassword(password), isAdmin, (row) =>
         user = @addUser(row)
         res.json
           success: true
@@ -228,7 +234,7 @@ class Engine
     @app.put '/admin/users/:user_id', restrict_admin, (req, res) =>
       user = @users[req.param('user_id')]
       user.edit
-        password_hash: PasswordHash.generate(req.body.password)
+        password_hash: newPassword(req.body.password)
         is_admin: if req.body.is_admin == 'true' then 1 else 0,
         =>
           res.json
