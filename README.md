@@ -28,16 +28,19 @@ Configuring the Server
 ------------------
 
 Running tapchat for the first time will prompt you for a port to run on, and generate an SSL certificate. 
-This configuration info will be stored in the `.tapchat` folder in your home directory.
+This configuration info will be stored in the `.tapchat` folder in your home directory 
+(for Macs, it will be in `~/Library/Application Support/Tapchat`).
+
+The setup process will generate a self-signed certificate titled `tapchat.pem`. Feel free to replace this with your own certificate.
 
 Planned Changes for my fork
 ---------------------------
 
 Haven't worked with coffeescript before, so nothing major:
 
- * Custom SSL Certificates - It's 2016, so that means that trusted SSL certs are easy to get with [LetsEncrypt](https://letsencrypt.org). Why not add the ability to use one instead of a shady self-signed cert?
  * Custom CSS and Themes - Add a dropdown menu for themes (including the ability to add your own CSS)
  * /msg - How the hell else am I supposed to identify to NickServ!?
+ * Use a more secure password hashing algorithm (as opposed to one that's been deprecated!)
 
 
 

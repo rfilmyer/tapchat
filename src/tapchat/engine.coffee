@@ -59,6 +59,8 @@ class Engine
 
     @db = new BacklogDB =>
       @finishLoading(callback)
+      
+    @sslDisabled = config.sslDisabled
 
   finishLoading: (callback) ->
     @startServer(@port, callback)
@@ -241,10 +243,13 @@ class Engine
         res.json
           success: true
 
-    @web = Https.createServer
-      key:  Fs.readFileSync(Config.getCertFile())
-      cert: Fs.readFileSync(Config.getCertFile()),
-      @app
+    unless @sslDisabled
+      @web = Https.createServer
+        key:  Fs.readFileSync(Config.getCertFile())
+        cert: Fs.readFileSync(Config.getCertFile()),
+        @app
+    else
+      @web = Http.createServer @app
 
     @web.addListener 'upgrade', (req, socket, head) =>
       req.method = 'UPGRADE' # Prevent any matching GET handlers from running
