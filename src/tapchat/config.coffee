@@ -21,6 +21,7 @@
 Program      = require('commander')
 WorkingQueue = require('capisce').WorkingQueue
 PasswordHash = require('password-hash')
+Bcrypt       = require('bcryptjs')
 Path         = require('path')
 Fs           = require('fs')
 Mkdirp       = require('mkdirp')
@@ -75,7 +76,7 @@ Config =
 
     queue.perform (over) =>
       Program.password 'Choose a password:', '*', (password) ->
-        initialUser.password = PasswordHash.generate(password)
+        initialUser.password = Bcrypt.hashSync(password, 12)
         over()
 
     queue.perform (over) =>

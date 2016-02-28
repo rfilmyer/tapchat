@@ -27,7 +27,8 @@ Passport      = require('passport')
 LocalStrategy = require('passport-local').Strategy
 Url           = require('url')
 WebSocket     = require('faye-websocket')
-PasswordHash  = require('password-hash')
+PasswordHash  = require('password-hash') #Deprecated
+Bcrypt        = require('bcryptjs')
 CoffeeScript  = require('coffee-script')
 Util          = require('util')
 Crypto        = require('crypto')
@@ -52,10 +53,11 @@ SessionStore = require './session_store'
 {starts, ends, compact, count, merge, extend, flatten, del, last} = CoffeeScript.helpers
 
 checkPassword = (password, hash) ->
-  PasswordHash.verify(password, hash)
+  PasswordHash.verify(password, hash) or
+  Bcrypt.compareSync(password, hash)
   
 newPassword = (password) ->
-  PasswordHash.generate(password)
+  Bcrypt.hashSync(password, 12)
 
 class Engine
   constructor: (config, callback) ->

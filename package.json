@@ -40,6 +40,7 @@
     "serve-static": "1.5.0",
     "method-override": "2.1.2",
     "password-hash": "1.2.2",
+    "bcryptjs": "^2.3.0",
     "mkdirp": "0.3.5",
     "commander": "1.1.1",
     "eco": "1.1.0-rc-3",
