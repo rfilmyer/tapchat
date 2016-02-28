@@ -18,28 +18,40 @@ Installing
     $ sudo npm install -g
     $ tapchat start
     
-Access the web interface by visiting `https://your_ip_address:8067`. Note that only secure HTTPS is supported. Select the option to save the automatically-generated certificate into your browser after verifying the fingerprint matches.
+Access the web interface by visiting `https://your_ip_address:port`. (default: 8067) Note that only secure HTTPS is supported. Select the option to save the automatically-generated certificate into your browser after verifying the fingerprint matches.
 
 If you have any problems, you can start tapchat in debug mode:
 
     $ tapchat start -fv
+    
+Configuring the Server
+------------------
+
+Running tapchat for the first time will prompt you for a port to run on, and generate an SSL certificate. 
+This configuration info will be stored in the `.tapchat` folder in your home directory.
+
+Planned Changes for my fork
+---------------------------
+
+Haven't worked with coffeescript before, so nothing major:
+
+ * Custom SSL Certificates - It's 2016, so that means that trusted SSL certs are easy to get with [LetsEncrypt](https://letsencrypt.org). Why not add the ability to use one instead of a shady self-signed cert?
+ * Custom CSS and Themes - Add a dropdown menu for themes (including the ability to add your own CSS)
+ * /msg - How the hell else am I supposed to identify to NickServ!?
+
+
 
 Authors
 -------
 
- * [Eric Butler](https://twitter.com/codebutler)
-
-Contributing
-------------
-
-This repository is set up with [BitHub](https://whispersystems.org/blog/bithub/), so you can make money for committing to TapChat. The current BitHub price for an accepted pull request is:
-
-[![Current BitHub Price](https://tapchat-bithub.herokuapp.com/v1/status/payment/commit/)](https://tapchat-bithub.herokuapp.com/)
+ * Original project - [Eric Butler](https://twitter.com/codebutler)
+ * Minor improvements - [Roger Filmyer](https://twitter.com/rfilmyer)
+ * Pull requests on original project - various
 
 License
 -------
 
-    Copyright (C) 2014 Eric Butler
+    Copyright (C) 2016 Eric Butler
 
 	This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
