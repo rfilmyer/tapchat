@@ -44,6 +44,7 @@ Haven't worked with coffeescript before, so nothing major:
 
  * Custom CSS and Themes - Add a dropdown menu for themes (including the ability to add your own CSS)
  * /msg - How the hell else am I supposed to identify to NickServ!?
+ * Network Aliases - What if you have 2 accounts on Freenode?
 
 
 
@@ -51,7 +52,7 @@ Authors
 -------
 
  * Original project - [Eric Butler](https://twitter.com/codebutler)
- * Minor improvements - [Roger Filmyer](https://twitter.com/rfilmyer)
+ * Improvements - [Roger Filmyer](https://twitter.com/rfilmyer)
  * Pull requests on original project - various
 
 License
