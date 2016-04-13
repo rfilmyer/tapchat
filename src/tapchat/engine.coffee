@@ -95,7 +95,8 @@ class Engine
 
     @app.use(Morgan('combined')) if Log.level == 'silly'
     @app.use(CookieParser())
-    @app.use(BodyParser())
+    @app.use(BodyParser.urlencoded({extended: true}))
+    @app.use(BodyParser.json())
     @app.use(MethodOverride())
     @app.use(Passport.initialize())
     @app.use(sessionChecker)
