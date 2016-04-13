@@ -317,12 +317,12 @@ class Connection extends EventEmitter
                 connName: @name,
                 signal:   signalName
               return _.last(arguments)()
-            #Log.silly "Starting event handler for: #{signalName}"
+            Log.silly "Starting event handler for: #{signalName}"
             signalHandler.apply(this, arguments)
 
           @queue.perform (over) ->
             overWrapper = =>
-              #Log.silly "Done with event handler for: #{signalName}"
+              Log.silly "Done with event handler for: #{signalName}"
               over()
             args.push(overWrapper)
             handler args...
